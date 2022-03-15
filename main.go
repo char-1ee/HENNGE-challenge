@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	// "time"
+	"time"
 )
 
 func main() {
@@ -10,12 +10,12 @@ func main() {
 	fmt.Scanln(&numOfCases)
 	results := make([]int, numOfCases)
 
-	// start := time.Now();
+	start := time.Now();
 
 	readCase(results, 0, numOfCases)
 
-	// elapsed := time.Since(start)
-	// fmt.Printf("timing: %s", elapsed * 1000)
+	elapsed := time.Since(start)
+	fmt.Printf("timing: %s", elapsed * 1000)
 }
 
 func readCase(results []int, i int, n int) {
