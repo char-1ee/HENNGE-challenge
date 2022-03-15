@@ -17,7 +17,7 @@ import sys
 import struct
 
 userid = "xingjianli59@gmail.com"
-secret_suffix = "HDECHALLENGE003"
+secret_suffix = "HENNGECHALLENGE003"
 shared_secret = userid + secret_suffix
 
 timestep = 30
@@ -50,5 +50,5 @@ def TOTP(K, digits=10, timeref = 0, timestep = 30):
     C = int( time.time() - timeref ) // timestep
     return HOTP(K, C, digits = digits)
 
-password = TOTP("shared_secret", 10, T0, timestep).zfill(10)
+password = TOTP(shared_secret, 10, T0, timestep).zfill(10)
 print(password)
