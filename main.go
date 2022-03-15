@@ -10,12 +10,12 @@ func main() {
 	fmt.Scanln(&numOfCases)
 	results := make([]int, numOfCases)
 
-	start := time.Now();
+	start := time.Now()
 
 	readCase(&results, 0, numOfCases)
 
 	elapsed := time.Since(start)
-	fmt.Printf("timing: %s", elapsed * 1000)
+	fmt.Printf("timing: %s", elapsed*1000)
 }
 
 func readCase(results *[]int, i int, n int) {
@@ -24,7 +24,9 @@ func readCase(results *[]int, i int, n int) {
 		return
 	}
 	var size int
-	fmt.Scan(&size)
+	if m, err := fmt.Scan(&size); m != 1 {
+		panic(err)
+	}
 
 	arr := make([]int, size)
 	// var ptr *int = (&results)[i]
@@ -38,9 +40,12 @@ func readArray(a *[]int, i int, n int) int {
 		return 0
 	}
 	var num int
-	fmt.Scan(&num)
+	if m, err := fmt.Scan(&num); m != 1 {
+		panic(err)
+	}
+
 	if num >= 0 {
-		return num * num + readArray(a, i+1, n)
+		return num*num + readArray(a, i+1, n)
 	}
 	return readArray(a, i+1, n)
 }
