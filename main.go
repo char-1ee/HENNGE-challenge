@@ -1,21 +1,12 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
 func main() {
 	var numOfCases int
 	fmt.Scanln(&numOfCases)
 	results := make([]int, numOfCases)
-
-	start := time.Now()
-
 	readCase(&results, 0, numOfCases)
-
-	elapsed := time.Since(start)
-	fmt.Printf("timing: %s", elapsed*1000)
 }
 
 func readCase(results *[]int, i int, n int) {
@@ -23,14 +14,13 @@ func readCase(results *[]int, i int, n int) {
 		print(results, 0, n)
 		return
 	}
+
 	var size int
 	if m, err := fmt.Scan(&size); m != 1 {
 		panic(err)
 	}
 
 	arr := make([]int, size)
-	// var ptr *int = (&results)[i]
-	// readArray(&arr, ptr, 0, size)
 	(*results)[i] = readArray(&arr, 0, size)
 	readCase(results, i+1, n)
 }
