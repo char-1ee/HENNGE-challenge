@@ -12,13 +12,13 @@ func main() {
 
 	start := time.Now();
 
-	readCase(results, 0, numOfCases)
+	readCase(&results, 0, numOfCases)
 
 	elapsed := time.Since(start)
 	fmt.Printf("timing: %s", elapsed * 1000)
 }
 
-func readCase(results []int, i int, n int) {
+func readCase(results *[]int, i int, n int) {
 	if i == n {
 		print(results, 0, n)
 		return
@@ -27,27 +27,28 @@ func readCase(results []int, i int, n int) {
 	fmt.Scan(&size)
 
 	arr := make([]int, size)
-	var ptr *int = &results[i]
-	readArray(arr, ptr, 0, size)
+	// var ptr *int = (&results)[i]
+	// readArray(&arr, ptr, 0, size)
+	(*results)[i] = readArray(&arr, 0, size)
 	readCase(results, i+1, n)
 }
 
-func readArray(a []int, p *int, i int, n int) {
+func readArray(a *[]int, i int, n int) int {
 	if i == n {
-		return
+		return 0
 	}
 	var num int
 	fmt.Scan(&num)
 	if num >= 0 {
-		*p += num * num
+		return num * num + readArray(a, i+1, n)
 	}
-	readArray(a, p, i+1, n)
+	return readArray(a, i+1, n)
 }
 
-func print(a []int, i int, n int) {
+func print(a *[]int, i int, n int) {
 	if i == n {
 		return
 	}
-	fmt.Println(a[i])
+	fmt.Println((*a)[i])
 	print(a, i+1, n)
 }
