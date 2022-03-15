@@ -3,13 +3,12 @@
  Email: xingjianli59@gmail.com
 
  Compute the squares sums of given integers.
- Noticed that no for loop is allowed, we use recursive calls to replace use of loops. 
+ Noticed that no for loop is allowed, we use recursive calls to replace use of loops.
  To improve performance of recursion:
 	1. use tail recursions
 	2. pass by pointers rather than values
 	3. avoid global variables
- 
- */
+*/
 package main
 
 import "fmt"
@@ -40,7 +39,7 @@ func readCase(results *[]int, i int, n int) {
 	readCase(results, i+1, n)
 }
 
-// readArray() takes pointer to test case array, current index i, recursion count n as parameters, 
+// readArray() takes pointer to test case array, current index i, recursion count n as parameters,
 // and return the sum of squares of positive integers.
 // Before index reach n, it reads an integer from Scan() and sum up recursively. When i equals n, return 0.
 func readArray(a *[]int, i int, n int) int {
