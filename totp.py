@@ -16,7 +16,7 @@ import time
 import sys
 import struct
 
-userid = "ninja@example.com"
+userid = "xingjianli59@gmail.com"
 secret_suffix = "HDECHALLENGE003"
 shared_secret = userid + secret_suffix
 
@@ -24,7 +24,8 @@ timestep = 30
 T0 = 0
 
 def HOTP(K, C, digits=10):
-    """HTOP:
+    """
+    HTOP:
     K is the shared key
     C is the counter value
     digits control the response length
@@ -41,12 +42,13 @@ def Truncate(hmac_sha512):
     return str(binary)
 
 def TOTP(K, digits=10, timeref = 0, timestep = 30):
-    """TOTP, time-based variant of HOTP
+    """
+    TOTP, time-based variant of HOTP
     digits control the response length
     the C in HOTP is replaced by ( (currentTime - timeref) / timestep )
     """
-    C = int ( 1395069651 - timeref ) // timestep
+    C = int( time.time() - timeref ) // timestep
     return HOTP(K, C, digits = digits)
 
-passwd = TOTP("ninja@example.comHDECHALLENGE003ninja@example.comHDECHALLENGE003", 10, T0, timestep).zfill(10)
-print passwd
+password = TOTP("shared_secret", 10, T0, timestep).zfill(10)
+print(password)
