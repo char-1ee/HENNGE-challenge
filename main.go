@@ -17,37 +17,37 @@ func main() {
 	var numOfCases int // N: number of test cases to follow
 	fmt.Scanln(&numOfCases)
 	results := make([]int, numOfCases) // array to record sum of squares from each test case
-	readCase(&results, 0, numOfCases)
+	readCase(results, 0, numOfCases)
 }
 
 // readCase() takes pointer to `result`, current index i, recursion count n as parameters.
 // Before index i reach n, it reads from stdin the number of space-seperated integers and call readArray()
 // in every recursion. Once index i reach n, readCase() call print() to print the sums in `results`.
-func readCase(results *[]int, i int, n int) {
+func readCase(results []int, i int, n int) {
 	if i == n {
 		print(results, 0, n)
 		return
 	}
 
 	var size int // X: number of space-seperated integers
-	if m, err := fmt.Scan(&size); m != 1 {
+	if _, err := fmt.Scan(&size); err != nil {
 		panic(err)
 	}
 
 	arr := make([]int, size)
-	(*results)[i] = readArray(&arr, 0, size)
+	results[i] = readArray(arr, 0, size)
 	readCase(results, i+1, n)
 }
 
 // readArray() takes pointer to test case array, current index i, recursion count n as parameters,
 // and return the sum of squares of positive integers.
 // Before index reach n, it reads an integer from Scan() and sum up recursively. When i equals n, return 0.
-func readArray(a *[]int, i int, n int) int {
+func readArray(a []int, i int, n int) int {
 	if i == n {
 		return 0
 	}
 	var num int // Yn: input integer of every test case
-	if m, err := fmt.Scan(&num); m != 1 {
+	if _, err := fmt.Scan(&num); err != nil {
 		panic(err)
 	}
 
@@ -59,10 +59,23 @@ func readArray(a *[]int, i int, n int) int {
 
 // print() takes pointer to result array, current index i, recursion count n as parameters.
 // Before recursing up to n times, print() prints the sums from result array in recursion to stdout.
-func print(a *[]int, i int, n int) {
+func print(a []int, i int, n int) {
 	if i == n {
 		return
 	}
-	fmt.Println((*a)[i])
+	fmt.Println(a[i])
 	print(a, i+1, n)
+}
+
+// compute() is a function for recursive computing 
+func compute(a []int) int {
+	if len(a) == 0 {
+		return 0
+	}
+	// input [0] [1..n-1] 
+	curr := a[0]
+	if curr < 0 {
+		return compute(a[1:])
+	}
+	return curr * curr + compute(a[1:])
 }
